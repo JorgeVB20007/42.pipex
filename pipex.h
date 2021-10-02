@@ -3,7 +3,10 @@
 
 # include <string.h>
 # include <unistd.h>
-# include <stdio.h
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+
 
 typedef struct s_input
 {
@@ -11,6 +14,9 @@ typedef struct s_input
 	char	*comm2;
 }					t_input;
 
-int		main(int argc, char **argv);
+int		main(int argc, char **argv, char **envp);
+char	**ft_split(char const *s, char c);
+char	*ft_strdup(const char *s1);
+
 
 #endif
