@@ -1,4 +1,4 @@
-#include "pipex.h"
+/*#include "pipex.h"
 
 char	*getgoodpath(char **envp, char *command)
 {
@@ -43,6 +43,7 @@ void child_one(int pip[2], char *in_file, char *command, char **envp)
 	close(fd);
 	if (!access(command, X_OK))
 	{
+		write(1, "Access granted!\n\n", 17);
 		splittedcommand = ft_split(command, '/');
 		fd = 0;
 		while (splittedcommand[fd])
@@ -51,10 +52,27 @@ void child_one(int pip[2], char *in_file, char *command, char **envp)
 	}
 	else
 	{
+		write(1, "Path found!\n\n", 13);
 		splittedcommand = ft_split(command, ' ');
 		execve(getgoodpath(envp, splittedcommand[0]), splittedcommand, envp);
 	}
 
+}
+
+void child_half(int oldpip[2], int newpip[2], char *command, char **envp)
+{
+	int		fd;
+	char	**splittedcommand;
+
+	splittedcommand = ft_split(command, ' ');
+	close(newpip[0]);
+	close(oldpip[1]);
+	dup2(oldpip[0], STDIN_FILENO);
+	dup2(newpip[1], STDOUT_FILENO);
+	close(fd);
+	close(oldpip[0]);
+	close(newpip[1]);
+	execve(getgoodpath(envp, splittedcommand[0]), splittedcommand, envp);
 }
 
 void child_two(int pip[2], char *out_file, char *command, char **envp)
@@ -105,3 +123,4 @@ int main(int argc, char **argv, char **envp)
 	waitpid(ischildone, 0, 0);
 	waitpid(ischildtwo, 0, 0);
 }
+*/
