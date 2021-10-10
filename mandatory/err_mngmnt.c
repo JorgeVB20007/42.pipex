@@ -1,33 +1,7 @@
-#include "pipex.h"
+#include "../include/pipex.h"
 
-void	infile_nf(char *file)
+void	problem(char *file)
 {
-	int	a;
-
-	a = 0;
-/*	write(1, ".zsh: no such file or directory: ", 33);
-	while (file[a])
-	{
-		write(1, &file[a], 1);
-		a++;
-	}
-	write(1, "\n", 1);*/
-	perror(file);
-	exit (0);
-}
-
-void	infile_pd(char *file)
-{
-	int	a;
-
-	a = 0;
-/*	write(1, ".zsh: permission denied: ", 25);
-	while (file[a])
-	{
-		write(1, &file[a], 1);
-		a++;
-	}
-	write(1, "\n", 1);*/
 	perror(file);
 	exit (0);
 }

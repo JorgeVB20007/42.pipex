@@ -1,6 +1,7 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include "../libft/libft.h"
 # include <string.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -15,10 +16,6 @@ typedef struct s_input
 }					t_input;
 
 int		main(int argc, char **argv, char **envp);
-char	**ft_split(char const *s, char c);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	infile_nf(char *file);
-void	infile_pd(char *file);
+void	problem(char *file);
 
 #endif

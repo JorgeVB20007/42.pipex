@@ -1,4 +1,4 @@
-#include "../include/pipex.h"
+/*#include "pipex.h"
 
 char	*getgoodpath(char **envp, char *command)
 {
@@ -7,13 +7,7 @@ char	*getgoodpath(char **envp, char *command)
 	char	*attempt;
 
 	a = 0;
-	if (!envp)
-	{
-		perror("Error: envp not found.");
-		exit (0);
-	}
 	command = ft_strjoin("/", command);
-	result = NULL;
 	while (envp[a] != NULL)
 	{
 		if (envp[a][0] == 'P' && envp[a][1] == 'A' && envp[a][2] == 'T' \
@@ -25,7 +19,7 @@ char	*getgoodpath(char **envp, char *command)
 		a++;
 	}
 	a = 0;
-	while (result[a] != NULL)
+	while (result != NULL)
 	{
 		attempt = ft_strjoin(result[a], command);
 		if (!access(attempt, X_OK))
@@ -33,39 +27,13 @@ char	*getgoodpath(char **envp, char *command)
 		free (attempt);
 		a++;
 	}
-	perror("command not found");
-//	problem(command);
 	return (NULL);
-}
-
-void	just_do_it(char *command, char **envp)
-{
-	char	**splittedcommand;
-	char	**splittedtwo;
-	char	**splittedthree;
-	int		a;
-
-	splittedcommand = ft_split(command, ' ');
-	splittedthree = ft_split(command, ' ');
-	a = 0;
-	if (!access(splittedcommand[0], X_OK))
-	{
-		splittedtwo = ft_split(splittedcommand[0], '/');
-		while (splittedtwo[a])
-			a++;
-		free(splittedthree[0]);
-		splittedthree[0] = splittedtwo[a - 1];
-		execve(splittedcommand[0], splittedthree, envp);
-	}
-	else
-	{
-		execve(getgoodpath(envp, splittedcommand[0]), splittedcommand, envp);
-	}
 }
 
 void child_one(int pip[2], char *in_file, char *command, char **envp)
 {
 	int		fd;
+	char	**splittedcommand;
 
 	close(pip[0]);
 	fd = open(in_file, 0);
@@ -73,21 +41,53 @@ void child_one(int pip[2], char *in_file, char *command, char **envp)
 	dup2(fd, STDIN_FILENO);
 	close(pip[1]);
 	close(fd);
-	just_do_it(command, envp);
+	if (!access(command, X_OK))
+	{
+		write(1, "Access granted!\n\n", 17);
+		splittedcommand = ft_split(command, '/');
+		fd = 0;
+		while (splittedcommand[fd])
+			fd++;
+		execve(command, &splittedcommand[fd - 1], envp);
+	}
+	else
+	{
+		write(1, "Path found!\n\n", 13);
+		splittedcommand = ft_split(command, ' ');
+		execve(getgoodpath(envp, splittedcommand[0]), splittedcommand, envp);
+	}
+
+}
+
+void child_half(int oldpip[2], int newpip[2], char *command, char **envp)
+{
+	int		fd;
+	char	**splittedcommand;
+
+	splittedcommand = ft_split(command, ' ');
+	close(newpip[0]);
+	close(oldpip[1]);
+	dup2(oldpip[0], STDIN_FILENO);
+	dup2(newpip[1], STDOUT_FILENO);
+	close(fd);
+	close(oldpip[0]);
+	close(newpip[1]);
+	execve(getgoodpath(envp, splittedcommand[0]), splittedcommand, envp);
 }
 
 void child_two(int pip[2], char *out_file, char *command, char **envp)
 {
 	int		fd;
+	char	**splittedcommand;
 
 	close(pip[1]);
+	splittedcommand = ft_split(command, ' ');
 	fd = open(out_file, O_CREAT | O_RDWR | O_TRUNC, 0666);
 	dup2(pip[0], STDIN_FILENO);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	close(pip[0]);
-	just_do_it(command, envp);
-//	execve(getgoodpath(envp, splittedcommand[0]), splittedcommand, envp);
+	execve(getgoodpath(envp, splittedcommand[0]), splittedcommand, envp);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -97,18 +97,14 @@ int main(int argc, char **argv, char **envp)
 	pid_t	ischildtwo;
 
 	if (access(argv[1], 0))
-		problem(argv[1]);
+		infile_nf(argv[1]);
 	else if (access(argv[1], R_OK))
-		problem(argv[1]);
-	else if (!access(argv[4], 0) && access(argv[4], W_OK))
-		problem(argv[4]);
+		infile_pd(argv[1]);
+	else if (access(argv[4], W_OK) && !access(argv[4], 0))
+		infile_pd(argv[4]);
 	pipe(pip);
 	if (argc != 5)
-	{
-		write(1, "Error: must include 4 arguments.\n", 33);
 		return (0);
-	}
-	ischildtwo = 0;
 	ischildone = fork();
 	if (ischildone == -1)
 		return (0);
@@ -127,3 +123,4 @@ int main(int argc, char **argv, char **envp)
 	waitpid(ischildone, 0, 0);
 	waitpid(ischildtwo, 0, 0);
 }
+*/
