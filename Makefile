@@ -1,6 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/12 21:45:02 by jvacaris          #+#    #+#              #
+#    Updated: 2021/10/12 21:45:03 by jvacaris         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 
 SRCS	=	./mandatory/err_mngmnt.c \
 			./mandatory/pipex.c \
+			./mandatory/doublefree.c \
+			./mandatory/dothings.c \
 
 OBJS = ${SRCS:.c=.o}
 #OBJS_BONUS = ${SRCS_BONUS:.c=.o}
@@ -15,7 +29,7 @@ NAME = pipex
 LIBFT = libft.a
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra #-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 all:		${NAME}
 ${NAME}:	${LIBFT} ${OBJS} 

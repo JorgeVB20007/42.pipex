@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   doublefree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 19:21:27 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/06/04 19:21:28 by jvacaris         ###   ########.fr       */
+/*   Created: 2021/10/12 21:40:41 by jvacaris          #+#    #+#             */
+/*   Updated: 2021/10/12 21:40:42 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
-char	*ft_strdup(const char *s1)
+void	doublefree(char ***ptp)
 {
-	int		cntr;
-	int		cntr2;
-	char	*s2;
+	int	a;
 
-	cntr = 0;
-	cntr2 = 0;
-	while (s1[cntr] != 0)
-		cntr++;
-	s2 = malloc(cntr + 1);
-	if (!s2)
-		return (NULL);
-	while (cntr2 < cntr)
-	{
-		s2[cntr2] = s1[cntr2];
-		cntr2++;
-	}
-	s2[cntr2] = 0;
-	return (s2);
+	a = 0;
+	while ((*ptp)[a])
+		free ((*ptp)[a++]);
+	free ((*ptp)[a++]);
+	free (*ptp);
 }

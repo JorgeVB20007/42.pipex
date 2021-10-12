@@ -8,7 +8,6 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-
 typedef struct s_input
 {
 	char	*comm1;
@@ -16,6 +15,9 @@ typedef struct s_input
 }					t_input;
 
 int		main(int argc, char **argv, char **envp);
-void	problem(char *file);
+void	problem(char *prefix, char *file, int exitcode);
+void	doublefree(char ***ptp);
+char	*getgoodpath(char **envp, char *command);
+int		just_do_it(char *command, char **envp);
 
 #endif
