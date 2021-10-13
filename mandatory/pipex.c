@@ -12,7 +12,7 @@
 
 #include "../include/pipex.h"
 
-int	child_one(int pip[2], char *in_file, char *command, char **envp)
+static int	child_one(int pip[2], char *in_file, char *command, char **envp)
 {
 	int		fd;
 	int		a;
@@ -32,7 +32,7 @@ int	child_one(int pip[2], char *in_file, char *command, char **envp)
 	exit (a);
 }
 
-int	child_two(int pip[2], char *out_file, char *command, char **envp)
+static int	child_two(int pip[2], char *out_file, char *command, char **envp)
 {
 	int	fd;
 	int	a;
@@ -52,7 +52,7 @@ int	child_two(int pip[2], char *out_file, char *command, char **envp)
 	exit (a);
 }
 
-int	parent(pid_t ischildtwo, int pip[2], char **argv, char **envp)
+static int	parent(pid_t ischildtwo, int pip[2], char **argv, char **envp)
 {
 	int	ret;
 
