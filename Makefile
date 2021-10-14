@@ -6,7 +6,7 @@
 #    By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 21:45:02 by jvacaris          #+#    #+#              #
-#    Updated: 2021/10/12 21:45:03 by jvacaris         ###   ########.fr        #
+#    Updated: 2021/10/14 16:35:13 by jvacaris         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,8 @@ ${NAME}:	${LIBFT} ${OBJS}
 			${CC} ${CFLAGS} ${PATH_LIBFT}${LIBFT} ${OBJS} -I ${PATH_INCLUDES} -o ${NAME}
 ${LIBFT}:	
 			@make -C ${PATH_LIBFT}
-
 clean:
-	@${RM} ${OBJS} ${OBJS_BONUS}
+	@${RM} ${OBJS}
 	@make clean -C ${PATH_LIBFT}
 	@echo ".o's are no more!"
 fclean:		clean
